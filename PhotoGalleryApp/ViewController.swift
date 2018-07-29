@@ -1,10 +1,7 @@
 //
 //  ViewController.swift
 //  PhotoGalleryApp
-//
-//  Created by Satyam Sehgal on 29/07/18.
-//  Copyright © 2018 Satyam Sehgal. All rights reserved.
-//
+
 
 import UIKit
 
