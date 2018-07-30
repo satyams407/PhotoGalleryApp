@@ -15,6 +15,7 @@
 		AC1AF6D8210D82C30038FDF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC1AF6D6210D82C30038FDF4 /* LaunchScreen.storyboard */; };
 		AC1AF6E3210D82C30038FDF4 /* PhotoGalleryAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AF6E2210D82C30038FDF4 /* PhotoGalleryAppTests.swift */; };
 		AC1AF6EE210D82C30038FDF4 /* PhotoGalleryAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AF6ED210D82C30038FDF4 /* PhotoGalleryAppUITests.swift */; };
+		AC1AF707210DD3FE0038FDF4 /* PhotoGalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1AF706210DD3FE0038FDF4 /* PhotoGalleryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		AC1AF6E9210D82C30038FDF4 /* PhotoGalleryAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoGalleryAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1AF6ED210D82C30038FDF4 /* PhotoGalleryAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryAppUITests.swift; sourceTree = "<group>"; };
 		AC1AF6EF210D82C30038FDF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC1AF706210DD3FE0038FDF4 /* PhotoGalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		AC1AF6FE210DCF840038FDF4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				AC1AF706210DD3FE0038FDF4 /* PhotoGalleryCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				AC1AF6CD210D82C00038FDF4 /* LandingViewController.swift in Sources */,
 				AC1AF6D3210D82C00038FDF4 /* PhotoGalleryApp.xcdatamodeld in Sources */,
 				AC1AF6CB210D82C00038FDF4 /* AppDelegate.swift in Sources */,
+				AC1AF707210DD3FE0038FDF4 /* PhotoGalleryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
