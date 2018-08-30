@@ -25,6 +25,7 @@ class FetchService {
                 } else {
                     completion(nil,nil)
                 }
+                
             })
         }
     }

@@ -11,10 +11,11 @@ import Foundation
 class KeyConstants {
 
     enum FetchPhotos: String {
-        case SEARCH_METHOD
-        case FORMAT_TYPE
-        case JSON_CALLBACK
-        case PRIVACY_FILTER
-        case API_KEY
+        case method
+        case format
+        case nojsoncallback
+        case privacy_filter
+        case api_key
+        case tags
     }
 }
