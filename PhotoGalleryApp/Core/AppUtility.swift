@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import UIKit
+
+class AppUtility {
+    static func imageFromURL(url: URL) -> UIImage? {
+        var image: UIImage?
+        let data = try? Data(contentsOf: url)
+        if let imageData = data {
+            image = UIImage(data: imageData)
+        }
+        return image
+    }
+}

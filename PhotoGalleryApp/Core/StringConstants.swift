@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class StringConstants {
+
+    struct TabBarConstants {
+        private init() { }
+        static let home = "Home"
+        static let search = "Search"
+        static let profile = "Profile"
+    }
+}

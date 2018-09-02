@@ -17,5 +17,18 @@ class KeyConstants {
         case privacy_filter
         case api_key
         case tags
+        case per_page
+        case size
+    }
+
+    enum photosData: String {
+        case photo
+        case photos
+        case farm
+        case server
+        case id
+        case secret
+        case title
+        case imageURL
     }
 }

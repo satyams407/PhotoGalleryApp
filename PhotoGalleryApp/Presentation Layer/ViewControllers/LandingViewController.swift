@@ -6,80 +6,72 @@
 import UIKit
 import Foundation
 
-struct Welcome: Codable {
-    let photos: Photos
-    let stat: String
-}
-
-struct Photos: Codable {
-    let page: Int
-    let pages: String
-    let perpage: Int
-    let total: String
-    let photo: [Photo]
-}
-
-struct Photo: Codable {
-    let id, owner, secret, server: String
-    let farm: Int
-    let title: String
-    let ispublic, isfriend, isfamily: Int
-}
-
 class LandingViewController: UIViewController {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    var debounceTimer: Timer?
+    var imageDataSource = [PhotoCellModel]()
+    let tableCellHeight: CGFloat = 350.0
 
-    @IBOutlet weak var tabelView: UITableView!
-    var imageDataSource: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        screenSetupForTableView()
         createDataSource()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchPhotos()
-    }
-    func createDataSource() {
-       self.imageDataSource = ["first","second"]
+        activityIndicatorView.startAnimating()
+        self.fetchAllPhotos()
     }
 
-    func fetchPhotos() {
+    func createDataSource() {
+       //self.imageDataSource = ["first","second"]
+    }
+
+    func fetchAllPhotos(searchText: String? = "observatory") {
         let params : [String : Any] = [
             KeyConstants.FetchPhotos.method.rawValue : "flickr.photos.search",
-            KeyConstants.FetchPhotos.tags.rawValue: "observatory",
+            KeyConstants.FetchPhotos.tags.rawValue: searchText!,
             KeyConstants.FetchPhotos.api_key.rawValue: "f32611f39f86cdb703a0b1305ffd9099",
             KeyConstants.FetchPhotos.nojsoncallback.rawValue: 1,
             KeyConstants.FetchPhotos.format.rawValue: "json",
-            ]
-        FetchService().fetchPhotos(params: params) { (response, data) in
+            KeyConstants.FetchPhotos.per_page.rawValue: 10
+        ]
+        FetchPhotoService().fetchPhotos(params: params) { (response, data) in
             if data != nil {
+                if self.imageDataSource.count > 0 {
+                    self.imageDataSource.removeAll()
+                }
                 if let photosData = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                    let photos = photosData!["photos"] as? [String: Any]
-                    if let photo = photos!["photo"] as? [[String: Any]] {
+                    let photos = photosData![KeyConstants.photosData.photos.rawValue] as? [String: Any]
+                    if let photo = photos![KeyConstants.photosData.photo.rawValue] as? [[String: Any]] {
                         for index in photo {
-                            let farmID = index["farm"]
-                            let serverID = index["server"]
-                            let id = index["id"]
-                            let secret = index["secret"]
-                            let imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!).jpg"
-                            self.imageDataSource.append(imageURL)
+                            let farmID = index[KeyConstants.photosData.farm.rawValue]
+                            let serverID = index[KeyConstants.photosData.server.rawValue]
+                            let id = index[KeyConstants.photosData.id.rawValue]
+                            let secret = index[KeyConstants.photosData.secret.rawValue]
+                            var photoCellModel: PhotoCellModel?
+                            photoCellModel = PhotoCellModel()
+                            photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!)_m.jpg"
+                            photoCellModel!.title = index[KeyConstants.photosData.title.rawValue] as! String
+                            self.imageDataSource.append(photoCellModel!)
+                            photoCellModel = nil
                         }
                     }
                 }
             }
             DispatchQueue.main.async {
-                self.tabelView.reloadData()
+                self.tableView.reloadData()
             }
         }
+        activityIndicatorView.stopAnimating()
     }
 
-    func imageFromURL(url: URL) -> UIImage? {
-        var image: UIImage?
-        let data = try? Data(contentsOf: url)
-        if let imageData = data {
-            image = UIImage(data: imageData)
-        }
-        return image
+    func screenSetupForTableView() {
+        tableView.backgroundView = nil
+        tableView.backgroundColor = .clear
+        tableView.separatorColor = .clear
     }
 }
 
@@ -90,16 +82,15 @@ extension LandingViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "PhotoGalleryCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)
-        if let imageURL = try? imageDataSource[indexPath.row] .asURL() {
-            cell?.imageView?.image = imageFromURL(url: imageURL)  ?? #imageLiteral(resourceName: "circle")
+        let tableCell = tableView.dequeueReusableCell(withIdentifier: AppConstants.CellIdentifiers.photoGalleryTableCell.rawValue)
+        if let cell = tableCell as? PhotoGalleryTableViewCell {
+            let photo = self.imageDataSource[indexPath.row]
+            cell.updateCell(with: photo)
         }
-        return cell!
+        return tableCell!
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return tableCellHeight
     }
 }
-

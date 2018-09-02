@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+struct AppConstants {
+    private init() {}
+    enum CellIdentifiers: String {
+        case photoGalleryTableCell = "PhotoGalleryCell"
+    }
+
+    
+}

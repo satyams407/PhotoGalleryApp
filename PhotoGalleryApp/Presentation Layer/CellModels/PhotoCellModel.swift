@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import UIKit
+
+class PhotoCellModel {
+    var title: String = ""
+    var imageURL: String = ""
+}
