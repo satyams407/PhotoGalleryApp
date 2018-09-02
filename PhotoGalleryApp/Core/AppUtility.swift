@@ -18,4 +18,13 @@ class AppUtility {
         }
         return image
     }
+ 
+    static func showAlert(title: String? = StringConstants.emptyString, message: String, onController controller: UIViewController) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+            let dismissAction = UIAlertAction.init(title: StringConstants.okButtonTitle, style: UIAlertActionStyle.cancel, handler: nil)
+            alert.addAction(dismissAction)
+            controller.present(alert, animated: true, completion: nil)
+        }
+    }
 }

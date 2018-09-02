@@ -16,4 +16,7 @@ class StringConstants {
         static let search = "Search"
         static let profile = "Profile"
     }
+
+    static let okButtonTitle = "Ok"
+    static let emptyString = ""
 }

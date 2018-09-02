@@ -7,11 +7,48 @@
 //
 
 import Foundation
-
+import Alamofire
 
 class LandingViewModel {
-    func fetchPhotos() {
+    typealias DictionaryObject = [String: Any]
+    let fetchService = FetchPhotoService()
+    var dataSourceArray = [PhotoCellModel]()
 
+    func fetchPhotos(params: DictionaryObject, completionHandler completion: @escaping ([PhotoCellModel]?, AppError?) -> Void) {
+        if !(NetworkReachabilityManager()?.isReachable)! {
+            completion(nil, AppError.init(with: .networkError, error: nil, message: "Currently the Server could not be accessed. Please check your connection", code: nil))
+        } else {
+            fetchService.fetchPhotos(params: params) { (response, data) in
+                guard let data = data else {
+                    let error = AppError.init(with: AppError.ErrorType.paramsError, error: nil, message: "Unable to fetch data", code: nil)
+                    completion(nil, error)
+                    return
+                }
+
+                if let photosData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    let photos = photosData![KeyConstants.photosData.photos.rawValue] as? [String: Any]
+                    if let photo = photos![KeyConstants.photosData.photo.rawValue] as? [[String: Any]] {
+                        for index in photo {
+                            let farmID = index[KeyConstants.photosData.farm.rawValue]
+                            let serverID = index[KeyConstants.photosData.server.rawValue]
+                            let id = index[KeyConstants.photosData.id.rawValue]
+                            let secret = index[KeyConstants.photosData.secret.rawValue]
+                            var photoCellModel: PhotoCellModel? = PhotoCellModel()
+                            photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!)_m.jpg"
+                            photoCellModel!.title = index[KeyConstants.photosData.title.rawValue] as! String
+
+                            self.dataSourceArray.append(photoCellModel!)
+                            photoCellModel = nil
+                        }
+                        completion(self.dataSourceArray, nil)
+                    } else {
+                        completion(nil, nil)
+                    }
+                } else {
+                    let error = AppError.init(with: AppError.ErrorType.paramsError, error: nil, message: "Unable to fetch data", code: nil)
+                    completion(nil, error)
+                }
+            }
+        }
     }
-
 }

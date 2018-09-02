@@ -11,6 +11,7 @@ class LandingViewController: UIViewController {
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     var debounceTimer: Timer?
     var imageDataSource = [PhotoCellModel]()
+    var landingViewModel = LandingViewModel()
     let tableCellHeight: CGFloat = 350.0
 
     override func viewDidLoad() {
@@ -29,7 +30,7 @@ class LandingViewController: UIViewController {
        //self.imageDataSource = ["first","second"]
     }
 
-    func fetchAllPhotos(searchText: String? = "observatory") {
+    func fetchAllPhotos(searchText: String? = "all") {
         let params : [String : Any] = [
             KeyConstants.FetchPhotos.method.rawValue : "flickr.photos.search",
             KeyConstants.FetchPhotos.tags.rawValue: searchText!,
@@ -38,32 +39,18 @@ class LandingViewController: UIViewController {
             KeyConstants.FetchPhotos.format.rawValue: "json",
             KeyConstants.FetchPhotos.per_page.rawValue: 10
         ]
-        FetchPhotoService().fetchPhotos(params: params) { (response, data) in
-            if data != nil {
-                if self.imageDataSource.count > 0 {
-                    self.imageDataSource.removeAll()
-                }
-                if let photosData = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                    let photos = photosData![KeyConstants.photosData.photos.rawValue] as? [String: Any]
-                    if let photo = photos![KeyConstants.photosData.photo.rawValue] as? [[String: Any]] {
-                        for index in photo {
-                            let farmID = index[KeyConstants.photosData.farm.rawValue]
-                            let serverID = index[KeyConstants.photosData.server.rawValue]
-                            let id = index[KeyConstants.photosData.id.rawValue]
-                            let secret = index[KeyConstants.photosData.secret.rawValue]
-                            var photoCellModel: PhotoCellModel?
-                            photoCellModel = PhotoCellModel()
-                            photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!)_m.jpg"
-                            photoCellModel!.title = index[KeyConstants.photosData.title.rawValue] as! String
-                            self.imageDataSource.append(photoCellModel!)
-                            photoCellModel = nil
-                        }
-                    }
-                }
+
+        landingViewModel.fetchPhotos(params: params) { (cellModel, appError) in
+            guard let cellModel = cellModel else {
+                AppUtility.showAlert(message: (appError?.message)!, onController: self)
+                return
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            for index in cellModel {
+                self.imageDataSource.append(index)
             }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
         activityIndicatorView.stopAnimating()
     }
