@@ -10,10 +10,14 @@ import Foundation
 import UIKit
 
 
-class PhotoGalleryCell: UITableViewCell {
+class PhotoGalleryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var imageview: UIImageView!
 
+    func updateCell(with photocell: PhotoCellModel) {
+        self.title.text = photocell.title
+        self.imageview.image = AppUtility.imageFromURL(url: (try? photocell.imageURL.asURL())!)
+    }
     
 }

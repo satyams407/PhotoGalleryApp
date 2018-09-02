@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class FetchService {
+class FetchPhotoService {
 
     var url = "https://api.flickr.com/services/rest/"
     var manager: Alamofire.SessionManager {
