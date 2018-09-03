@@ -14,5 +14,7 @@ struct AppConstants {
         case photoGalleryTableCell = "PhotoGalleryCell"
     }
 
+    static let PageSize: Int = 5
+
     
 }

@@ -19,6 +19,8 @@ class KeyConstants {
         case tags
         case per_page
         case size
+        case sort
+        case page
     }
 
     enum photosData: String {

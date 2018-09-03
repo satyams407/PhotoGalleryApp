@@ -15,7 +15,9 @@ class LandingViewModel {
     var dataSourceArray = [PhotoCellModel]()
 
     func fetchPhotos(params: DictionaryObject, completionHandler completion: @escaping ([PhotoCellModel]?, AppError?) -> Void) {
+
         if !(NetworkReachabilityManager()?.isReachable)! {
+            // Offine case
             completion(nil, AppError.init(with: .networkError, error: nil, message: "Currently the Server could not be accessed. Please check your connection", code: nil))
         } else {
             fetchService.fetchPhotos(params: params) { (response, data) in
@@ -34,7 +36,7 @@ class LandingViewModel {
                             let id = index[KeyConstants.photosData.id.rawValue]
                             let secret = index[KeyConstants.photosData.secret.rawValue]
                             var photoCellModel: PhotoCellModel? = PhotoCellModel()
-                            photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!)_m.jpg"
+                            photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!).jpg"
                             photoCellModel!.title = index[KeyConstants.photosData.title.rawValue] as! String
 
                             self.dataSourceArray.append(photoCellModel!)
