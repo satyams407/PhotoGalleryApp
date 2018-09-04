@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class PhotoGalleryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
@@ -17,7 +16,7 @@ class PhotoGalleryTableViewCell: UITableViewCell {
 
     func updateCell(with photocell: PhotoCellModel) {
         self.title.text = photocell.title
-        self.imageview.image = AppUtility.imageFromURL(url: (try? photocell.imageURL.asURL())!)
+        self.imageview.downloadFromLink(link: photocell.imageURL, contentMode: UIViewContentMode.scaleAspectFill)
     }
     
 }
