@@ -1,1 +1,1 @@
-# PhotoGalleryApp
+# FlickrApp
