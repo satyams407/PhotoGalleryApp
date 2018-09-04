@@ -46,6 +46,7 @@ class LandingViewController: UIViewController {
         landingViewModel.fetchPhotos(params: params) { (cellModel, appError) in
             guard let cellModel = cellModel else {
                 AppUtility.showAlert(message: (appError?.message)!, onController: self)
+                self.activityIndicatorView.stopAnimating()
                 return
             }
             for index in cellModel {
@@ -89,7 +90,7 @@ extension LandingViewController: UITableViewDataSource, UITableViewDelegate {
         let count = self.imageDataSource.count
         if  indexPath.row == count - 1 {
             self.nextPageNo += 1
-            fetchAllPhotos()
+           // fetchAllPhotos()
         }
     }
 
