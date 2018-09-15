@@ -39,19 +39,15 @@ class LandingViewController: UIViewController {
             KeyConstants.FetchPhotos.page.rawValue: self.totalPages
         ]
 
-        if nextPageNo == 0 {
-            self.imageDataSource.removeAll()
-        }
-
         landingViewModel.fetchPhotos(params: params) { (cellModel, appError) in
             guard let cellModel = cellModel else {
                 AppUtility.showAlert(message: (appError?.message)!, onController: self)
                 self.activityIndicatorView.stopAnimating()
                 return
             }
-            for index in cellModel {
-                self.imageDataSource.append(index)
-            }
+//            for index in cellModel {
+//                self.imageDataSource.append(index)
+//            }
             DispatchQueue.main.async {
                self.tableView.reloadData()
             }
@@ -81,7 +77,10 @@ extension LandingViewController: UITableViewDataSource, UITableViewDelegate {
         if let cell = tableCell as? PhotoGalleryTableViewCell {
             let photo = self.imageDataSource[indexPath.row]
             cell.updateCell(with: photo)
+            cell.configure(photoCell: photo)
         }
+
+
         return tableCell!
     }
 

@@ -30,9 +30,8 @@ class AppError: Error {
         return errorString
     }
 
-    required init(with errorType: ErrorType, error: Error?, message: String? = nil, code: String? = nil) {
+    required init(with errorType: ErrorType, message: String? = nil) {
         self.errorType = errorType
-        self.errorCode = code
         self.originalMessage = message
     }
 }

@@ -9,21 +9,48 @@
 import Foundation
 import Alamofire
 
-class FetchPhotoService {
+struct PhotoResponse: Codable {
+    let stat: String
+    let photos: Photos
+}
 
-    var url = "https://api.flickr.com/services/rest/"
-    var manager: Alamofire.SessionManager {
+struct Photos: Codable {
+    let page: Int
+    let pages: String
+    let perpage: Int
+    let total: String
+    let photo: [Photo]
+}
+
+struct Photo: Codable {
+    let id, owner, secret, server: String
+    let farm: Int
+    let title: String
+    let ispublic, isfriend, isfamily: Int
+}
+
+class FetchPhotoService {
+    var url : URL
+    var params: Dictionary
+
+    private var manager: Alamofire.SessionManager {
         return Alamofire.SessionManager.default
     }
 
-    func fetchPhotos(params: [String: Any], completion: @escaping (HTTPResponseCode?, Data?) -> Void) {
+    init(_ url: URL, params: Dictionary) {
+        self.url = url
+        self.params = params
+    }
+
+    func fetch(completion: @escaping (Any?, AppError?) -> Void) {
         manager.request(url, method: .get, parameters: params).responseJSON(completionHandler: { (response) in
-            if let httpStatusCode = response.response?.statusCode {
-                let code = HTTPResponseCode(rawValue: httpStatusCode)
-                completion(code, response.data)
-            } else {
-                completion(nil,nil)
+            guard let jsonData = response.data,
+               let photos = try? JSONDecoder().decode(PhotoResponse.self, from: jsonData),
+                let photoArray = photos as? [Photo] else {
+                   // completion(PhotoResult.failure(AppError))
+                    return
             }
+            completion(photoArray, nil)
         })
     }
 }

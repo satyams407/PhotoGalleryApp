@@ -9,6 +9,27 @@
 import Foundation
 import Alamofire
 
+
+class LandingViewModel {
+
+    private var url = URL.init(string: APIURLConstants.searchPhotos.urlString())
+    var dataSourceArray = [PhotoCellModel]()
+
+    func fetchPhotos(params: Dictionary, completion: @escaping (PhotoCellModel?, AppError?) -> Void) {
+        guard let rm = NetworkReachabilityManager(), rm.isReachable == true else {
+            let appError = AppError(with: .networkError, message: "Please check your connection")
+            completion(nil, appError)
+            return
+        }
+
+        FetchPhotoService(url!, params: params).fetch  { (photoArray, error)  in
+            completion(nil,error)
+        }
+    }
+}
+
+
+/*
 class LandingViewModel {
     typealias DictionaryObject = [String: Any]
     let fetchService = FetchPhotoService()
@@ -54,3 +75,4 @@ class LandingViewModel {
         }
     }
 }
+ */

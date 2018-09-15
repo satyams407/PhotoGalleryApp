@@ -7,6 +7,7 @@
 //
 
 import Foundation
+typealias Dictionary = [String: Any] //make it globally accessible
 
 struct AppConstants {
     private init() {}
@@ -14,5 +15,5 @@ struct AppConstants {
         case photoGalleryTableCell = "PhotoGalleryCell"
     }
 
-    static let PageSize: Int = 15
+    static let PageSize: Int = 1
 }

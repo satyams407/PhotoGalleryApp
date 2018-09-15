@@ -33,6 +33,7 @@
 		ACD842CB213BAAC30099A62B /* PhotoCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842CA213BAAC30099A62B /* PhotoCellModel.swift */; };
 		ACD842CD213BAFC80099A62B /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842CC213BAFC80099A62B /* AppUtility.swift */; };
 		ACD842D1213C56570099A62B /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842D0213C56570099A62B /* AppError.swift */; };
+		ACE0D0C3214A5385008DF0E6 /* AppURLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE0D0C2214A5385008DF0E6 /* AppURLConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		ACD842CA213BAAC30099A62B /* PhotoCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellModel.swift; sourceTree = "<group>"; };
 		ACD842CC213BAFC80099A62B /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		ACD842D0213C56570099A62B /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		ACE0D0C2214A5385008DF0E6 /* AppURLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppURLConstants.swift; sourceTree = "<group>"; };
 		C59A48CF8E4AE888A102DF24 /* Pods-PhotoGalleryAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGalleryAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGalleryAppTests/Pods-PhotoGalleryAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		D64BC5147656FD5E777CD3EB /* Pods-PhotoGalleryAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGalleryAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGalleryAppUITests/Pods-PhotoGalleryAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,6 +284,7 @@
 				AC7003BF2132A0E200C1EA74 /* KeyConstants.swift */,
 				ACD842C3213AD5930099A62B /* StringConstants.swift */,
 				ACD842C7213BA7410099A62B /* AppConstants.swift */,
+				ACE0D0C2214A5385008DF0E6 /* AppURLConstants.swift */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				AC4313C1213EF49B006300EE /* UIImageViewExtension.swift in Sources */,
 				AC1AF707210DD3FE0038FDF4 /* PhotoGalleryTableViewCell.swift in Sources */,
 				AC4313C3213FAB48006300EE /* Theme.swift in Sources */,
+				ACE0D0C3214A5385008DF0E6 /* AppURLConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
