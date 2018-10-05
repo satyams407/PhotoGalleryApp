@@ -7,22 +7,40 @@
 //
 
 import UIKit
+import Alamofire
 
-class SearchViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
-    let kcornerRadius: CGFloat = 10.0
-    var debounceTimer: Timer?
+    @IBOutlet weak var collectionView: UICollectionView!
 
     @IBOutlet weak var hikingButton: UIButton!
+    @IBOutlet weak var lifeStyleButton: UIButton!
+    @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var fitnessButton: UIButton!
+    @IBOutlet weak var sportsButton: UIButton!
+
+    let kcornerRadius: CGFloat = 10.0
+    fileprivate let itemPerRow: CGFloat = 3
+    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 20.0)
+    var debounceTimer: Timer?
+    var dataSourceArray = [PhotoCellModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUserInterface(for: searchBar)
         screenSetupForButtons()
+        fetchAllPhotos(searchText: "random")
     }
 
     func screenSetupForButtons() {
-        //hikingButton.setImage(#imageLiteral(resourceName: "hiking"), for: .normal)
+        hikingButton.roundCorners([.topLeft,.topRight, .bottomLeft, .bottomRight], radius: kcornerRadius)
+        lifeStyleButton.roundCorners([.topLeft,.topRight, .bottomLeft, .bottomRight], radius: 10.0)
+        fitnessButton.roundCorners([.topLeft,.topRight, .bottomLeft, .bottomRight], radius: kcornerRadius)
+        musicButton.roundCorners([.topLeft,.topRight, .bottomLeft, .bottomRight], radius: kcornerRadius)
+        sportsButton.roundCorners([.topLeft,.topRight, .bottomLeft, .bottomRight], radius: kcornerRadius)
+    }
+
+    func imageBackgroundSetUpForButtons(sender: UIButton) {
     }
 
     func setUpUserInterface(for searchBar: UISearchBar) {
@@ -48,32 +66,102 @@ class SearchViewController: UIViewController, UICollectionViewDelegate, UICollec
     var params : [String : Any] = [
         KeyConstants.FetchPhotos.method.rawValue : "flickr.photos.search",
         KeyConstants.FetchPhotos.api_key.rawValue: "f32611f39f86cdb703a0b1305ffd9099",
+        KeyConstants.FetchPhotos.nojsoncallback.rawValue: 1,
         KeyConstants.FetchPhotos.format.rawValue: "json",
         KeyConstants.FetchPhotos.per_page.rawValue: AppConstants.PageSize,
         KeyConstants.FetchPhotos.sort.rawValue : "interestingness-desc",
+        KeyConstants.FetchPhotos.page.rawValue: 5
     ]
 
     private var url = URL.init(string: APIURLConstants.searchPhotos.urlString())
 
     @IBAction func categoryButtonAction(_ sender: UIButton) {
-        params[KeyConstants.FetchPhotos.tags.rawValue] = sender.currentTitle
-        FetchPhotoService(url!, params: params).fetch  { (photoArray, error)  in
+        self.dataSourceArray.removeAll()
+        self.fetchAllPhotos(searchText: sender.currentTitle ?? "")
+    }
+
+    func fetchAllPhotos(searchText: String) {
+        params[KeyConstants.FetchPhotos.tags.rawValue] = searchText
+        self.fetchPhotos(params: params) { (status, data) in
+            guard let data = data else {
+                return
+            }
+            if let photosData = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                let photos = photosData![KeyConstants.photosData.photos.rawValue] as? [String: Any]
+                if let photo = photos![KeyConstants.photosData.photo.rawValue] as? [[String: Any]] {
+                    for index in photo {
+                        let farmID = index[KeyConstants.photosData.farm.rawValue]
+                        let serverID = index[KeyConstants.photosData.server.rawValue]
+                        let id = index[KeyConstants.photosData.id.rawValue]
+                        let secret = index[KeyConstants.photosData.secret.rawValue]
+                        var photoCellModel: PhotoCellModel? = PhotoCellModel()
+                        photoCellModel!.imageURL = "https://farm\(farmID!).staticflickr.com/\(serverID!)/\(id!)_\(secret!).jpg"
+                        photoCellModel!.title = index[KeyConstants.photosData.title.rawValue] as! String
+                        self.dataSourceArray.append(photoCellModel!)
+                        photoCellModel = nil
+                    }
+                }
+            } else {
+                print("error while fetching photos")
+            }
+
+            self.collectionView.reloadData()
         }
     }
 
-    // MARK: Collection view datasource and delegate methods
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellIdentifier = "searchcollectionviewcell"
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
-
-        return cell
+    func fetchPhotos(params: [String: Any], completion: @escaping (HTTPResponseCode?, Data?) -> Void) {
+        Alamofire.SessionManager.default.request(url!, method: .get, parameters: params).responseJSON(completionHandler: { (response) in
+            if let httpStatusCode = response.response?.statusCode {
+                let code = HTTPResponseCode(rawValue: httpStatusCode)
+                completion(code, response.data)
+            } else {
+                completion(nil,nil)
+            }
+        })
     }
 }
 
+// MARK: Collection view datasource and delegate methods
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSourceArray.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: AppConstants.CellIdentifiers.searchCollectionCell.rawValue, for: indexPath)
+        if let cell = collectionCell as? SearchResultCollectionViewCell, dataSourceArray.count > 0 {
+            cell.updateCell(with: dataSourceArray[indexPath.row])
+            cell.configure(photoCell: dataSourceArray[indexPath.row])
+        }
+        return collectionCell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemPerRow + 2.5)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemPerRow
+
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+
+}
 
 extension SearchViewController: UISearchBarDelegate {
 

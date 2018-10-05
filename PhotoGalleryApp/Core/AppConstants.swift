@@ -13,7 +13,8 @@ struct AppConstants {
     private init() {}
     enum CellIdentifiers: String {
         case photoGalleryTableCell = "PhotoGalleryCell"
+        case searchCollectionCell = "collectionViewCell"
     }
 
-    static let PageSize: Int = 1
+    static let PageSize: Int = 20
 }
