@@ -17,7 +17,7 @@ class SearchResultCollectionViewCell: UICollectionViewCell {
     let defaultBackgroundColor = UIColor.groupTableViewBackground
 
     func updateCell(with photocell: PhotoCellModel) {
-        self.imageView.downloadFromLink(link: photocell.imageURL, contentMode: UIViewContentMode.scaleAspectFill)
+        self.imageView.downloadFromLink(link: photocell.imageURL, contentMode: UIView.ContentMode.scaleAspectFill)
     }
 
     func configure(photoCell: PhotoCellModel) {

@@ -19,7 +19,7 @@ class PhotoGalleryTableViewCell: UITableViewCell {
 
     func updateCell(with photocell: PhotoCellModel) {
         self.title.text = photocell.title
-        self.imageview.downloadFromLink(link: photocell.imageURL, contentMode: UIViewContentMode.scaleAspectFill)
+        self.imageview.downloadFromLink(link: photocell.imageURL, contentMode: UIView.ContentMode.scaleAspectFill)
     }
 
     func configure(photoCell: PhotoCellModel) {
