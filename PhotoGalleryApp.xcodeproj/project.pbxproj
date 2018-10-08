@@ -28,6 +28,7 @@
 		AC7003C22132A0E900C1EA74 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7003C12132A0E900C1EA74 /* AppEnums.swift */; };
 		AC7003C42132A10500C1EA74 /* LandingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7003C32132A10500C1EA74 /* LandingViewModel.swift */; };
 		AC7003C62132A12000C1EA74 /* FetchPhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7003C52132A11F00C1EA74 /* FetchPhotoService.swift */; };
+		AC741489216B97800062C492 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC741488216B97800062C492 /* ImageViewController.swift */; };
 		ACD842C2213ACFD60099A62B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842C1213ACFD60099A62B /* TabBarViewController.swift */; };
 		ACD842C4213AD5930099A62B /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842C3213AD5930099A62B /* StringConstants.swift */; };
 		ACD842C6213AF6590099A62B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD842C5213AF6590099A62B /* SearchViewController.swift */; };
@@ -87,6 +88,7 @@
 		AC7003C12132A0E900C1EA74 /* AppEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
 		AC7003C32132A10500C1EA74 /* LandingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewModel.swift; sourceTree = "<group>"; };
 		AC7003C52132A11F00C1EA74 /* FetchPhotoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchPhotoService.swift; sourceTree = "<group>"; };
+		AC741488216B97800062C492 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		ACD842C1213ACFD60099A62B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		ACD842C3213AD5930099A62B /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
 		ACD842C5213AF6590099A62B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				AC1AF6CC210D82C00038FDF4 /* LandingViewController.swift */,
 				ACD842C1213ACFD60099A62B /* TabBarViewController.swift */,
 				ACD842C5213AF6590099A62B /* SearchViewController.swift */,
+				AC741488216B97800062C492 /* ImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				AC4313C3213FAB48006300EE /* Theme.swift in Sources */,
 				AC1D8A53214FC7F700706FBF /* UIViewExtension.swift in Sources */,
 				ACE0D0C3214A5385008DF0E6 /* AppURLConstants.swift in Sources */,
+				AC741489216B97800062C492 /* ImageViewController.swift in Sources */,
 				AC1D8A51214E39E200706FBF /* SearchResultCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

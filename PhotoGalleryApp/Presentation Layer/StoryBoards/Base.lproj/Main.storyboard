@@ -222,6 +222,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="2dF-5g-tSz" id="RgW-R2-PJS"/>
+                                            <segue destination="UyV-ic-o8I" kind="show" identifier="showImage" id="Oos-Sa-AT9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -301,7 +302,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqZ-Cz-KkK" userLabel="Content view2">
-                                        <rect key="frame" x="0.0" y="200" width="150" height="60"/>
+                                        <rect key="frame" x="0.0" y="140" width="150" height="60"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1f-fy-VFp">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -341,9 +342,6 @@
                                         <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="600"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="lqZ-Cz-KkK" secondAttribute="top" id="zVN-AV-MlS">
-                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
-                                    </constraint>
                                 </constraints>
                             </view>
                         </subviews>
@@ -358,7 +356,63 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PFm-Tw-mCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212.5" y="901.5625"/>
+            <point key="canvasLocation" x="5239" y="533"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="76y-6s-Lp7">
+            <objects>
+                <viewController storyboardIdentifier="ImageViewController" modalPresentationStyle="formSheet" id="UyV-ic-o8I" customClass="ImageViewController" customModule="PhotoGalleryApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wq8-tZ-7nP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3x1-Dp-B4A">
+                                <rect key="frame" x="0.0" y="20" width="320" height="700"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLp-xx-0j2">
+                                <rect key="frame" x="10" y="720" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="CiX-5z-oFd"/>
+                                </constraints>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonAction:" destination="UyV-ic-o8I" eventType="touchUpInside" id="vcn-Xh-KkC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OU-5D-sgS">
+                                <rect key="frame" x="276" y="720" width="34" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="A9K-2b-QxT"/>
+                                </constraints>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonAction:" destination="UyV-ic-o8I" eventType="touchUpInside" id="isC-KZ-0aH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7cl-mW-KX6" firstAttribute="bottom" secondItem="4OU-5D-sgS" secondAttribute="bottom" id="RpC-5F-xjR"/>
+                            <constraint firstItem="eLp-xx-0j2" firstAttribute="leading" secondItem="7cl-mW-KX6" secondAttribute="leading" constant="10" id="SvR-4O-r5N"/>
+                            <constraint firstItem="3x1-Dp-B4A" firstAttribute="top" secondItem="7cl-mW-KX6" secondAttribute="top" id="f6i-UP-xbk"/>
+                            <constraint firstItem="eLp-xx-0j2" firstAttribute="bottom" secondItem="7cl-mW-KX6" secondAttribute="bottom" id="fQR-hX-UeY"/>
+                            <constraint firstItem="eLp-xx-0j2" firstAttribute="top" secondItem="3x1-Dp-B4A" secondAttribute="bottom" id="kjf-Fw-biH"/>
+                            <constraint firstItem="3x1-Dp-B4A" firstAttribute="leading" secondItem="7cl-mW-KX6" secondAttribute="leading" id="lgE-zx-5AF"/>
+                            <constraint firstItem="7cl-mW-KX6" firstAttribute="trailing" secondItem="3x1-Dp-B4A" secondAttribute="trailing" id="mLA-Ky-I7G"/>
+                            <constraint firstItem="7cl-mW-KX6" firstAttribute="bottom" secondItem="3x1-Dp-B4A" secondAttribute="bottom" constant="48" id="v2H-41-bVX"/>
+                            <constraint firstItem="4OU-5D-sgS" firstAttribute="top" secondItem="3x1-Dp-B4A" secondAttribute="bottom" id="wCb-yz-TsR"/>
+                            <constraint firstItem="7cl-mW-KX6" firstAttribute="trailing" secondItem="4OU-5D-sgS" secondAttribute="trailing" constant="10" id="yyC-mg-F8x"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7cl-mW-KX6"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="480"/>
+                    <connections>
+                        <outlet property="imageView" destination="3x1-Dp-B4A" id="pNB-j3-JcE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P1K-An-bu6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2392.5" y="636.71875"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="OG7-Jw-lYz">

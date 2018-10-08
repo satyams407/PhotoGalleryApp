@@ -24,12 +24,22 @@ class SearchViewController: UIViewController {
     fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 20.0)
     var debounceTimer: Timer?
     var dataSourceArray = [PhotoCellModel]()
+    var imageURL: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUserInterface(for: searchBar)
         screenSetupForButtons()
         fetchAllPhotos(searchText: "random")
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImage" {
+            let destinationVC = segue.destination as! ImageViewController
+            if let indexPath = sender as? IndexPath {
+                destinationVC.imageUrl = dataSourceArray[indexPath.row].imageURL
+            }
+        }
     }
 
     func screenSetupForButtons() {
@@ -159,6 +169,14 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        if let imageVC = storyBoard.instantiateViewController(withIdentifier: "ImageViewController") as? ImageViewController {
+            imageVC.imageUrl = dataSourceArray[indexPath.row].imageURL
+        }
+        self.performSegue(withIdentifier: "showImage", sender: indexPath)
     }
 
 }
