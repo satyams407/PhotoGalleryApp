@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import UserNotifications
 
 enum tabs: Int {
     case home
@@ -26,6 +27,8 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
         setData()
+        setUpLocalNotifications()
+        self.selectedIndex = 1
     }
 
     func setData() {
@@ -57,5 +60,17 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
             break
         }
         return tabBarItemData(title: title, image: image)
+    }
+
+    func setUpLocalNotifications() {
+        let content = UNMutableNotificationContent.init()
+        content.title = "Title"
+        content.body = "body of notication"
+        content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "INVITATION"
+
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "testNotification", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }

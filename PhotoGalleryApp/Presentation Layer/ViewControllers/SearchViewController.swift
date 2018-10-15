@@ -9,6 +9,9 @@
 import UIKit
 import Alamofire
 
+@objc protocol testProtocol {
+    @objc func testfucntion()
+}
 class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,11 +23,12 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var sportsButton: UIButton!
 
     let kcornerRadius: CGFloat = 10.0
-    fileprivate let itemPerRow: CGFloat = 3
-    fileprivate let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 20.0)
+    let itemPerRow: CGFloat = 3
+    let sectionInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 20.0)
+
     var debounceTimer: Timer?
     var dataSourceArray = [PhotoCellModel]()
-    var imageURL: String = ""
+    var imageURL: String = StringConstants.emptyString
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +42,7 @@ class SearchViewController: UIViewController {
             let destinationVC = segue.destination as! ImageViewController
             if let indexPath = sender as? IndexPath {
                 destinationVC.imageUrl = dataSourceArray[indexPath.row].imageURL
+                destinationVC.delegate = self
             }
         }
     }
@@ -132,7 +137,7 @@ class SearchViewController: UIViewController {
 }
 
 // MARK: Collection view datasource and delegate methods
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -217,5 +222,14 @@ extension SearchViewController: UISearchBarDelegate {
         }, completion: { (_) in
            // self.tableView.contentOffset = CGPoint.init(x: 0, y: 0)
         })
+    }
+}
+
+
+extension SearchViewController: BookMarkImageDelegate {
+    func saveImage(imageURL: String) {
+        // Fetch user object from core data
+        // update the bookmark array of the user
+        // save the context
     }
 }
