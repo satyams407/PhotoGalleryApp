@@ -9,26 +9,6 @@
 import Foundation
 import Alamofire
 
-struct PhotoResponse: Codable {
-    let stat: String
-    let photos: Photos
-}
-
-struct Photos: Codable {
-    let page: Int
-    let pages: String
-    let perpage: Int
-    let total: String
-    let photo: [Photo]
-}
-
-struct Photo: Codable {
-    let id, owner, secret, server: String
-    let farm: Int
-    let title: String
-    let ispublic, isfriend, isfamily: Int
-}
-
 class FetchPhotoService {
     var url : URL
     var params: Dictionary
@@ -44,13 +24,14 @@ class FetchPhotoService {
 
     func fetch(completion: @escaping (Any?, AppError?) -> Void) {
         manager.request(url, method: .get, parameters: params).responseJSON(completionHandler: { (response) in
-            guard let jsonData = response.data,
-               let photos = try? JSONDecoder().decode(PhotoResponse.self, from: jsonData),
-                let photoArray = photos as? [Photo] else {
+            guard let jsonData = response.data
+               //let photos = try? JSONDecoder().decode(PhotoResponse.self, from: jsonData),
+               // let photoArray = Photos.self
+                   else {
                    // completion(PhotoResult.failure(AppError))
-                    return
+                     return
             }
-            completion(photoArray, nil)
+            completion(jsonData, nil)
         })
     }
 }

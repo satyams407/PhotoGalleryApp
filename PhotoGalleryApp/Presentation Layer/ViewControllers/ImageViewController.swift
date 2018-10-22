@@ -24,8 +24,13 @@ class ImageViewController: UIViewController {
     }
 
     @IBAction func saveButtonAction(_ sender: UIButton) {
+        if CoreDataUtil.createNewObject(ofType: "Photos")?.setValue(self.imageUrl, forKey: "url") != nil {
+            CoreDataUtil.saveContext()
+        } else {
+            AppUtility.showAlert(message: "error while saving the photo", onController: self)
+        }
        // bookmark the image and save the url in core data object
-         delegate?.saveImage(imageURL: "https://flickr/hiking/abc.jpg")
+       //  delegate?.saveImage(imageURL: self.imageUrl)
     }
   
     override func viewDidLoad() {
@@ -46,30 +51,7 @@ class ImageViewController: UIViewController {
     }
 
 
-    func callBack(index: Int, callback: (Int,Int) -> Void) {
 
-    }
-
-    func callBackWithCompletion(isOffline: Bool, completion: @escaping (Bool, String) -> Void) {
-        completion(true,"")
-    }
-
-
-    func coreData() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "UsersDetails", in: context)
-        let newUser = NSManagedObject(entity: entity!, insertInto: context)
-        newUser.setValue("123", forKey: "userID")
-        newUser.setValue("username", forKey: "userName")
-        do {
-            try context.save()
-        } catch {
-           print("error while saving the data in local storage")
-        }
-
-        let udid = UUID().uuidString
-    }
     /*
     // MARK: - Navigation
 
@@ -80,4 +62,32 @@ class ImageViewController: UIViewController {
     }
     */
 
+}
+
+extension ImageViewController {
+    //Mark: some practice test functions
+
+    func callBack(index: Int, callback: (Int,Int) -> Void) {
+
+    }
+
+    func callBackWithCompletion(isOffline: Bool, completion: @escaping (Bool, String) -> Void) {
+        completion(true,"")
+    }
+
+
+    func coreData() {
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "UsersDetails", in: context)
+        let newUser = NSManagedObject(entity: entity!, insertInto: context)
+        newUser.setValue("123", forKey: "userID")
+        newUser.setValue("username", forKey: "userName")
+        do {
+            try context.save()
+        } catch {
+            print("error while saving the data in local storage")
+        }
+
+        let _ = UUID().uuidString
+    }
 }

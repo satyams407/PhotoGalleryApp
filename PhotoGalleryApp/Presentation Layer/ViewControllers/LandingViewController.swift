@@ -18,12 +18,13 @@ class LandingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicatorView.isHidden = true
         screenSetupForTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        activityIndicatorView.startAnimating()
+      //  activityIndicatorView.startAnimating()
         self.fetchAllPhotos()
     }
 

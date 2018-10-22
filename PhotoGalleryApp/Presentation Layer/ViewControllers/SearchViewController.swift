@@ -8,10 +8,8 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
-@objc protocol testProtocol {
-    @objc func testfucntion()
-}
 class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -228,6 +226,8 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: BookMarkImageDelegate {
     func saveImage(imageURL: String) {
+        CoreDataUtil.createNewObject(ofType: "Photos")?.setValue(imageURL, forKey:  "url")
+        CoreDataUtil.saveContext()
         // Fetch user object from core data
         // update the bookmark array of the user
         // save the context
