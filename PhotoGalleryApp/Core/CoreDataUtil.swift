@@ -31,4 +31,14 @@ class CoreDataUtil {
         }
         return nil
     }
+
+    static func fetchObjectsFromCoreData<T: NSManagedObject>(fetchRequest: NSFetchRequest<T>, predicate: NSPredicate?, inContext: NSManagedObjectContext? = CoreDataUtil.managedObjectContext) -> [T]? {
+        fetchRequest.predicate = predicate
+        do {
+            return try inContext?.fetch(fetchRequest)
+        } catch {
+            print("error while fetching the objects")
+            return nil
+        }
+    }
 }

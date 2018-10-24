@@ -42,6 +42,7 @@
 		ACDACF24217E302500CC03C0 /* Photos+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDACF22217E302500CC03C0 /* Photos+CoreDataProperties.swift */; };
 		ACDACF26217E32E500CC03C0 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDACF25217E32E500CC03C0 /* CoreDataStack.swift */; };
 		ACDACF28217E3CEC00CC03C0 /* CoreDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDACF27217E3CEC00CC03C0 /* CoreDataUtil.swift */; };
+		ACDACF2A217EEA0900CC03C0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDACF29217EEA0900CC03C0 /* ProfileViewController.swift */; };
 		ACE0D0C3214A5385008DF0E6 /* AppURLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE0D0C2214A5385008DF0E6 /* AppURLConstants.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		ACDACF22217E302500CC03C0 /* Photos+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photos+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		ACDACF25217E32E500CC03C0 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		ACDACF27217E3CEC00CC03C0 /* CoreDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUtil.swift; sourceTree = "<group>"; };
+		ACDACF29217EEA0900CC03C0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		ACE0D0C2214A5385008DF0E6 /* AppURLConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppURLConstants.swift; sourceTree = "<group>"; };
 		C59A48CF8E4AE888A102DF24 /* Pods-PhotoGalleryAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGalleryAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGalleryAppTests/Pods-PhotoGalleryAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		D64BC5147656FD5E777CD3EB /* Pods-PhotoGalleryAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoGalleryAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoGalleryAppUITests/Pods-PhotoGalleryAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				ACD842C5213AF6590099A62B /* SearchViewController.swift */,
 				AC741488216B97800062C492 /* ImageViewController.swift */,
 				AC74148A216CBAB70062C492 /* TestViewController.swift */,
+				ACDACF29217EEA0900CC03C0 /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				ACD842CB213BAAC30099A62B /* PhotoCellModel.swift in Sources */,
 				ACD842C4213AD5930099A62B /* StringConstants.swift in Sources */,
 				AC4313C1213EF49B006300EE /* UIImageViewExtension.swift in Sources */,
+				ACDACF2A217EEA0900CC03C0 /* ProfileViewController.swift in Sources */,
 				AC1AF707210DD3FE0038FDF4 /* PhotoGalleryTableViewCell.swift in Sources */,
 				ACDACF28217E3CEC00CC03C0 /* CoreDataUtil.swift in Sources */,
 				ACDACF26217E32E500CC03C0 /* CoreDataStack.swift in Sources */,

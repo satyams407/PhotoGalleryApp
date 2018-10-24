@@ -321,11 +321,11 @@
         <!--Item 1-->
         <scene sceneID="OG7-Jw-lYz">
             <objects>
-                <viewController id="Nqd-5x-gOd" customClass="TestViewController" customModule="PhotoGalleryApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Nqd-5x-gOd" customClass="ProfileViewController" customModule="PhotoGalleryApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="76C-rE-sFp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ve5-rH-Xk1"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="opc-eK-FeD"/>

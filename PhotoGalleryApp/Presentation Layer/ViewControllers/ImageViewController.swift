@@ -41,7 +41,6 @@ class ImageViewController: UIViewController {
                 print("user is in online state")
             }
         }
-        // Do any additional setup after loading the view.
     }
 
     func setUpImage() {

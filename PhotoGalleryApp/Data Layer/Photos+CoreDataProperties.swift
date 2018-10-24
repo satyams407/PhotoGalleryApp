@@ -17,5 +17,4 @@ extension Photos {
     }
 
     @NSManaged public var url: String?
-
 }
