@@ -10,6 +10,5 @@ import Foundation
 import CoreData
 
 public class Photos: NSManagedObject {
-    
 
 }

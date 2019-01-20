@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    var sda: Int = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchSavedPhotos()
@@ -17,11 +17,7 @@ class ProfileViewController: UIViewController {
     }
 
     func fetchSavedPhotos() {
-        let photosObject = CoreDataUtil.fetchObjectsFromCoreData(fetchRequest: Photos.fetchRequest(), predicate: nil)
-        print(photosObject)
+        let photosObject = CoreDataUtil.fetchObjectsFromCoreData(fetchRequest: Photos.fetchRequest(), predicate: nil
     }
 }
 
-extension ProfileViewController {
-
-}

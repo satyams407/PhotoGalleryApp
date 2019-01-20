@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 class FetchPhotoService {
-    var url : URL
+    var url: URL
     var params: Dictionary
 
     private var manager: Alamofire.SessionManager {
